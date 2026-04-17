@@ -4,6 +4,15 @@ public class SpawnManager : MonoBehaviour
 {
     public Transform spawnPoint;
     public GameObject obstaclePrefab;
+    private static SpawnManager StaticInstance = null;
+    public static SpawnManager GetStatic()
+    {
+        return StaticInstance;
+    }
+    void Awake()
+    {
+        StaticInstance = this;
+    }
 
     void Start()
     {
@@ -20,10 +29,19 @@ public class SpawnManager : MonoBehaviour
             return;
         }
 
-        Instantiate(
-            obstaclePrefab,
+        // Instantiate(
+        //     obstaclePrefab,
+        //     spawnPoint.position,
+        //     obstaclePrefab.transform.rotation
+        // );
+
+        var obstacleType = Random.Range(1,4);
+        Debug.Log(obstacleType);
+        var spawn = ObstacleObjectPool.GetStatic().Acquire(obstacleType);
+        
+        spawn.transform.SetPositionAndRotation(
             spawnPoint.position,
-            obstaclePrefab.transform.rotation
+            spawnPoint.rotation
         );
     }
 }
