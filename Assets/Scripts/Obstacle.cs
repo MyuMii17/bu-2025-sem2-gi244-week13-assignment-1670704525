@@ -5,15 +5,12 @@ public class Obstacle : MonoBehaviour
 {
     public ObstacleData obstacleData;
     public int obstacleType;
-    private static Obstacle StaticInstance = null;
-    public static Obstacle GetStatic()
-    {
-        return StaticInstance;
-    }
+    public string obstacleTypeName;
     void Awake()
     {
         gameObject.name = obstacleData.ObstacleDataName;
         obstacleType = obstacleData.ObstacleDataType;
-        StaticInstance = this;
+        obstacleTypeName = obstacleData.Type.ToString();
+        
     }
 }
